@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Data Cleaner</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>Data Detox</h1>
+      <p class="subtitle">Upload CSV / Excel → Edit → Clean → Download</p>
+    </header>
+
+    <main class="main">
+      <!-- Upload -->
+      <section class="card upload">
+        <form id="upload-form" enctype="multipart/form-data">
+          <input type="file" id="file" name="file" accept=".csv,.xlsx,.xls" />
+          <button type="submit" class="btn primary">Upload</button>
+        </form>
+        <p id="status" class="status"></p>
+      </section>
+
+      <!-- Actions -->
+      <section id="actions" class="card actions hidden">
+        <div class="row">
+          <div>
+            <label>Remove Duplicates (optional columns)</label>
+            <select id="dup-cols" multiple class="select-multi"></select>
+            <div class="row gap">
+              <button id="preview-dupes" class="btn">Preview</button>
+              <button id="remove-dupes" class="btn danger">Remove Duplicates</button>
+            </div>
+          </div>
+
+          <div>
+            <label>Fill Missing Values</label>
+            <select id="fill-col" class="input">
+              <option value="">All Columns</option>
+            </select>
+            <input id="fill-value" class="input" placeholder="Text to fill missing values" />
+            <button id="fill-missing" class="btn">Fill Missing</button>
+          </div>
+
+          <div>
+            <label>Download</label>
+            <select id="download-format" class="input">
+              <option value="csv">CSV</option>
+              <option value="xlsx">Excel (.xlsx)</option>
+            </select>
+            <button id="download-btn" class="btn primary">Download</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section id="stats" class="card stats hidden">
+        <div class="stats-grid">
+          <div><strong id="stat-rows">0</strong><div class="muted">Rows</div></div>
+          <div><strong id="stat-cols">0</strong><div class="muted">Columns</div></div>
+          <div><strong id="stat-missing">0</strong><div class="muted">Missing</div></div>
+          <div><strong id="stat-dupes">0</strong><div class="muted">Duplicates</div></div>
+        </div>
+      </section>
+
+      <!-- Table -->
+      <section id="table-card" class="card hidden">
+        <div class="table-actions">
+          <button id="save-btn" class="btn primary">Save Changes</button>
+          <button id="refresh-btn" class="btn">Refresh</button>
+        </div>
+        <div id="table-wrapper" class="table-wrapper">
+          <!-- table inserted here by JS -->
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
